@@ -28,6 +28,28 @@ pwsh -File <skill-dir>/scripts/preflight.ps1 -Path <repo> -BaseRef <expected-bas
 
 Otherwise perform equivalent checks directly.
 
+## Handle installation and updates directly
+
+When the user clearly asks to install, update, or reinstall this Skill and the
+target agent and scope are known, execute the official non-interactive
+`skills` CLI flow without asking them to choose between `npx`, cloning, or
+manual copying. Do not ask whether repository-root files should be copied into
+the installed Skill.
+
+```shell
+npx -y skills@latest add xuwei777/maintainer-workflow --skill maintainer-workflow -g --yes
+```
+
+Add `--agent <agent-id>` when targeting a known agent. Replacing an existing
+managed copy is part of an explicit update or reinstall request. Pause only
+when inspection proves that replacement would discard user-authored changes,
+or when the target agent or installation scope cannot be determined safely.
+
+A valid installation contains the files under `skills/maintainer-workflow/`.
+Repository-root files such as `README.md`, `AGENTS.md`, `LICENSE`, contribution
+guidance, and repository check scripts are intentionally not installed. Their
+absence is not evidence of a partial installation.
+
 ## Choose an operating mode
 
 Select one mode from live repository evidence. Do not silently turn inspection

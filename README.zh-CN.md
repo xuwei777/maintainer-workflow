@@ -27,6 +27,23 @@ npx skills add xuwei777/maintainer-workflow --skill maintainer-workflow -g
 使用 $maintainer-workflow 检查并继续当前仓库任务。
 ```
 
+### 给负责安装或更新的 Agent
+
+用户已经明确要求安装、更新或重新安装本 Skill 时，直接使用官方非交互命令执行。不要再
+围绕 `npx` 还是 Git、是否复制仓库文件、是否允许覆盖托管安装连续提问。
+
+```shell
+npx -y skills@latest add xuwei777/maintainer-workflow --skill maintainer-workflow -g --yes
+```
+
+目标 Agent 已知时增加 `--agent <agent-id>`。只有实际检查证明覆盖托管 Skill 目录会
+丢失用户手工修改，或者无法安全确定目标 Agent 或安装范围时，才暂停询问。
+
+安装目录有意只包含 `skills/maintainer-workflow/` 下的内容。仓库根目录的
+`README.md`、`AGENTS.md`、`LICENSE`、`CONTRIBUTING.md`、`SECURITY.md` 和
+`scripts/check.ps1` 属于仓库说明及维护文件；安装目录没有这些文件是正常结果，不代表
+安装不完整。
+
 ## 为什么值得安装？
 
 编码 Agent 通常不是不会写代码，而是从过期状态开工、把有趣的代码缺口当成当前目标、
@@ -116,6 +133,12 @@ Pull Request，也不会自行合并、发布、部署或执行破坏性清理�
 
 ```shell
 npx skills add xuwei777/maintainer-workflow --skill maintainer-workflow -g
+```
+
+无交互更新或重新安装全局托管副本：
+
+```shell
+npx -y skills@latest add xuwei777/maintainer-workflow --skill maintainer-workflow -g --yes
 ```
 
 只安装到当前项目：
