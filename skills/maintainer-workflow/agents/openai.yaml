@@ -1,0 +1,4 @@
+interface:
+  display_name: "Maintainer Workflow"
+  short_description: "Finish repository work like a maintainer"
+  default_prompt: "Use $maintainer-workflow to orient to the live repository state, protect the active mainline, choose or continue the smallest eligible delivery slice, perform authorized delivery and real acceptance, and hand it off with exact evidence."
