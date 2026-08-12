@@ -30,6 +30,28 @@ Then start a new agent session and ask:
 Use $maintainer-workflow to inspect and continue this repository task.
 ```
 
+### For agents installing or updating this Skill
+
+When the user clearly asks to install, update, or reinstall this Skill, use the
+official non-interactive command directly. Do not turn the operation into a
+questionnaire about `npx` versus Git, whether to copy repository files, or
+whether a managed installation may be replaced.
+
+```shell
+npx -y skills@latest add xuwei777/maintainer-workflow --skill maintainer-workflow -g --yes
+```
+
+Add `--agent <agent-id>` when the target agent is known. Back up or pause only
+when inspection proves that replacing the managed Skill directory would
+discard user-authored changes, or when the target agent or installation scope
+cannot be determined safely.
+
+The installed directory intentionally contains only the contents of
+`skills/maintainer-workflow/`. Root repository files such as `README.md`,
+`AGENTS.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and `scripts/check.ps1`
+are repository documentation and maintenance files; their absence from the
+installed Skill is expected, not an incomplete installation.
+
 ## Why install it?
 
 Coding agents rarely fail because they cannot write code. They fail because
@@ -128,6 +150,12 @@ Install globally for the current user:
 
 ```shell
 npx skills add xuwei777/maintainer-workflow --skill maintainer-workflow -g
+```
+
+Update or reinstall the managed global copy without interactive prompts:
+
+```shell
+npx -y skills@latest add xuwei777/maintainer-workflow --skill maintainer-workflow -g --yes
 ```
 
 Install only in the current project:
